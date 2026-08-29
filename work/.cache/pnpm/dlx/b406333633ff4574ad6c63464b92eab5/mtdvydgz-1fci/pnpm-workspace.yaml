@@ -1,3 +1,0 @@
-allowBuilds:
-  impeccable: true
-  puppeteer: set this to true or false
