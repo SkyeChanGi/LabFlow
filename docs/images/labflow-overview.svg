@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="LabFlow overview screen">
+  <rect width="1200" height="720" fill="#f7f1e8"/>
+  <rect x="54" y="44" width="1092" height="632" rx="18" fill="#fffdfa" stroke="#d9cdbc"/>
+  <rect x="86" y="78" width="58" height="58" rx="13" fill="#111"/>
+  <text x="115" y="105" text-anchor="middle" fill="#fffdfa" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-weight="800" font-size="20">LF</text>
+  <path d="M98 124V116M112 124V110M126 124V101M140 124V113" stroke="#fffdfa" stroke-width="5" stroke-linecap="round"/>
+  <text x="166" y="100" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-weight="750" font-size="30">LabFlow</text>
+  <text x="166" y="126" fill="#69645c" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="17">What to do next?</text>
+  <rect x="982" y="84" width="104" height="42" rx="10" fill="#111"/>
+  <text x="1034" y="111" text-anchor="middle" fill="#fffdfa" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-weight="700" font-size="16">+ Task</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="16" font-weight="700">
+    <rect x="86" y="164" width="184" height="62" rx="12" fill="#111"/>
+    <text x="110" y="190" fill="#fffdfa">Today</text><text x="110" y="212" fill="#d9cdbc" font-size="13" font-weight="500">Daily priorities</text>
+    <rect x="286" y="164" width="184" height="62" rx="12" fill="#fbf7ef" stroke="#d9cdbc"/>
+    <text x="310" y="190" fill="#111">Projects</text><text x="310" y="212" fill="#69645c" font-size="13" font-weight="500">Project boards</text>
+    <rect x="486" y="164" width="184" height="62" rx="12" fill="#fbf7ef" stroke="#d9cdbc"/>
+    <text x="510" y="190" fill="#111">People</text><text x="510" y="212" fill="#69645c" font-size="13" font-weight="500">Ownership</text>
+    <rect x="686" y="164" width="184" height="62" rx="12" fill="#fbf7ef" stroke="#d9cdbc"/>
+    <text x="710" y="190" fill="#111">Meeting</text><text x="710" y="212" fill="#69645c" font-size="13" font-weight="500">Zoom schedule</text>
+    <rect x="886" y="164" width="200" height="62" rx="12" fill="#fbf7ef" stroke="#d9cdbc"/>
+    <text x="910" y="190" fill="#111">Community</text><text x="910" y="212" fill="#69645c" font-size="13" font-weight="500">Ideas and shares</text>
+  </g>
+  <text x="86" y="284" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="28" font-weight="750">Start here</text>
+  <text x="86" y="314" fill="#69645c" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="16">Open LabFlow to see urgent work first. Changes save automatically.</text>
+  <rect x="86" y="352" width="500" height="246" rx="14" fill="#fff" stroke="#d9cdbc"/>
+  <text x="112" y="392" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="22" font-weight="750">Focus</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial">
+    <rect x="112" y="420" width="448" height="54" rx="10" fill="#fbf7ef" stroke="#e4d9ca"/>
+    <text x="132" y="452" fill="#111" font-size="16" font-weight="700">Pre-training ER article revision</text>
+    <rect x="444" y="432" width="96" height="30" rx="15" fill="#f1ded9"/><text x="492" y="452" text-anchor="middle" fill="#8e3a35" font-size="13" font-weight="700">urgent</text>
+    <rect x="112" y="490" width="448" height="54" rx="10" fill="#fbf7ef" stroke="#e4d9ca"/>
+    <text x="132" y="522" fill="#111" font-size="16" font-weight="700">Robot face and voice matching prompt</text>
+    <rect x="444" y="502" width="96" height="30" rx="15" fill="#f2e6d1"/><text x="492" y="522" text-anchor="middle" fill="#705226" font-size="13" font-weight="700">high</text>
+  </g>
+  <rect x="618" y="352" width="468" height="246" rx="14" fill="#fff" stroke="#d9cdbc"/>
+  <text x="644" y="392" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="22" font-weight="750">Next up</text>
+  <text x="644" y="430" fill="#69645c" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="16">Sorted by deadline. Click a task to edit details.</text>
+  <rect x="644" y="468" width="386" height="12" rx="6" fill="#ebe1d2"/>
+  <rect x="644" y="468" width="236" height="12" rx="6" fill="#111"/>
+  <text x="644" y="522" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="16" font-weight="700">Right-click task cards for quick actions.</text>
+</svg>

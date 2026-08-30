@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="LabFlow project and task editing">
+  <rect width="1200" height="720" fill="#f7f1e8"/>
+  <rect x="64" y="54" width="1072" height="612" rx="18" fill="#fffdfa" stroke="#d9cdbc"/>
+  <text x="100" y="112" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="34" font-weight="800">Projects</text>
+  <text x="100" y="145" fill="#69645c" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="17">Choose a project, edit progress, and update tasks in place.</text>
+  <rect x="100" y="188" width="270" height="404" rx="14" fill="#fbf7ef" stroke="#d9cdbc"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial">
+    <rect x="124" y="222" width="222" height="72" rx="12" fill="#111"/>
+    <text x="144" y="252" fill="#fffdfa" font-size="18" font-weight="750">ITF</text>
+    <text x="144" y="276" fill="#d9cdbc" font-size="13">65% complete</text>
+    <rect x="124" y="314" width="222" height="72" rx="12" fill="#fff" stroke="#e4d9ca"/>
+    <text x="144" y="344" fill="#111" font-size="18" font-weight="750">Emotion Recognition</text>
+    <text x="144" y="368" fill="#69645c" font-size="13">In progress</text>
+  </g>
+  <rect x="406" y="188" width="354" height="404" rx="14" fill="#fff" stroke="#d9cdbc"/>
+  <text x="434" y="232" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="24" font-weight="760">Task board</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial">
+    <text x="434" y="278" fill="#69645c" font-size="14" font-weight="700">TO DO</text>
+    <rect x="434" y="296" width="278" height="62" rx="10" fill="#fbf7ef" stroke="#e4d9ca"/>
+    <text x="454" y="333" fill="#111" font-size="16" font-weight="700">Edit pretended-play prompt</text>
+    <text x="434" y="398" fill="#69645c" font-size="14" font-weight="700">IN PROGRESS</text>
+    <rect x="434" y="416" width="278" height="62" rx="10" fill="#fbf7ef" stroke="#e4d9ca"/>
+    <text x="454" y="453" fill="#111" font-size="16" font-weight="700">Furhat demo stories</text>
+  </g>
+  <rect x="794" y="188" width="282" height="404" rx="14" fill="#111"/>
+  <text x="824" y="236" fill="#fffdfa" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="24" font-weight="760">Right-click menu</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="17" fill="#fffdfa">
+    <text x="824" y="296">Open task</text>
+    <text x="824" y="342">Mark in progress</text>
+    <text x="824" y="388">Mark done</text>
+    <text x="824" y="434" fill="#f1ded9">Delete task</text>
+  </g>
+  <text x="824" y="514" fill="#d9cdbc" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="14">Edits autosave after you type, select, or move progress.</text>
+</svg>

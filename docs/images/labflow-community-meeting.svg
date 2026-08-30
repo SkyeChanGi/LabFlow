@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="LabFlow community and meeting screens">
+  <rect width="1200" height="720" fill="#f7f1e8"/>
+  <rect x="64" y="54" width="1072" height="612" rx="18" fill="#fffdfa" stroke="#d9cdbc"/>
+  <text x="100" y="112" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="34" font-weight="800">Community &amp; Meeting</text>
+  <text x="100" y="145" fill="#69645c" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="17">Share useful lab resources and keep recurring Zoom links easy to find.</text>
+  <rect x="100" y="194" width="470" height="398" rx="14" fill="#fff" stroke="#d9cdbc"/>
+  <text x="132" y="240" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="24" font-weight="760">Community</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial">
+    <rect x="132" y="270" width="92" height="34" rx="17" fill="#e2ecfb"/><text x="178" y="292" text-anchor="middle" fill="#255f9f" font-size="13" font-weight="800">Code</text>
+    <rect x="236" y="270" width="122" height="34" rx="17" fill="#f1ded9"/><text x="297" y="292" text-anchor="middle" fill="#8e3a35" font-size="13" font-weight="800">Discussion</text>
+    <rect x="370" y="270" width="104" height="34" rx="17" fill="#e2eadf"/><text x="422" y="292" text-anchor="middle" fill="#315f42" font-size="13" font-weight="800">Method</text>
+    <rect x="132" y="336" width="382" height="70" rx="10" fill="#fbf7ef" stroke="#e4d9ca"/>
+    <text x="154" y="374" fill="#111" font-size="16" font-weight="720">Share Praat/R code, articles, images, videos, links</text>
+    <rect x="132" y="430" width="382" height="78" rx="10" fill="#fbf7ef" stroke="#e4d9ca"/>
+    <text x="154" y="462" fill="#111" font-size="16" font-weight="720">Comment by selecting your name</text>
+    <text x="154" y="488" fill="#69645c" font-size="14">Use filters to find Code, Discussion, Method, etc.</text>
+  </g>
+  <rect x="626" y="194" width="450" height="398" rx="14" fill="#fff" stroke="#d9cdbc"/>
+  <text x="658" y="240" fill="#111" font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial" font-size="24" font-weight="760">Meeting</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,Helvetica,Arial">
+    <rect x="658" y="278" width="356" height="96" rx="12" fill="#fbf7ef" stroke="#e4d9ca"/>
+    <text x="684" y="314" fill="#111" font-size="18" font-weight="760">Lab meeting</text>
+    <text x="684" y="342" fill="#69645c" font-size="15">Wednesday · 17:00 HK Time</text>
+    <rect x="658" y="406" width="356" height="96" rx="12" fill="#fbf7ef" stroke="#e4d9ca"/>
+    <text x="684" y="442" fill="#111" font-size="18" font-weight="760">RA meeting</text>
+    <text x="684" y="470" fill="#69645c" font-size="15">Friday · 14:00 HK Time</text>
+    <text x="658" y="544" fill="#69645c" font-size="14">Paste updated Zoom links. They autosave.</text>
+  </g>
+</svg>
