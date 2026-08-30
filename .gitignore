@@ -1,5 +1,7 @@
 .DS_Store
 node_modules/
+.cache/
+.pnpm-home/
 work/.pnpm-home/
 .pnpm-store/
 *.log
