@@ -3,6 +3,7 @@ node_modules/
 work/.pnpm-home/
 .pnpm-store/
 *.log
+dist/
 work/
 .codex/
 .agents/

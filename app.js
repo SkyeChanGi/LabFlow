@@ -346,6 +346,11 @@ const seed = {
 const MEDIA_DB_NAME = "labflow-media";
 const MEDIA_STORE_NAME = "uploads";
 const storedMediaUrls = new Map();
+const LABFLOW_CONFIG = window.LABFLOW_CONFIG || {};
+const SUPABASE = LABFLOW_CONFIG.supabase || {};
+const SUPABASE_READY = Boolean(SUPABASE.url && SUPABASE.anonKey);
+const SUPABASE_BUCKET = SUPABASE.bucket || "labflow-uploads";
+const SUPABASE_STATE_ID = "main";
 
 let state = loadState();
 let selectedProject = state.projects[0]?.id || "";
@@ -412,14 +417,81 @@ function normalizePostMedia(post) {
 
 function saveState(message = "Saved") {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  showToast(message);
   render();
+  if (SUPABASE_READY) {
+    void persistSharedState(message);
+  } else {
+    showToast(message);
+  }
 }
 
 function autoSaveState(message = "Autosaved") {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   window.clearTimeout(autoSaveState.timer);
-  autoSaveState.timer = window.setTimeout(() => showToast(message), 650);
+  autoSaveState.timer = window.setTimeout(() => {
+    if (SUPABASE_READY) {
+      void persistSharedState(message, true);
+    } else {
+      showToast(message);
+    }
+  }, 650);
+}
+
+async function hydrateSharedState() {
+  if (!SUPABASE_READY) return;
+  try {
+    const response = await supabaseFetch(`/rest/v1/labflow_state?id=eq.${encodeURIComponent(SUPABASE_STATE_ID)}&select=data,updated_at`, {
+      headers: { accept: "application/json" }
+    });
+    if (!response.ok) throw new Error(`Load failed: ${response.status}`);
+    const rows = await response.json();
+    if (rows[0]?.data) {
+      state = normalizeState(rows[0].data);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      selectedProject = state.projects.some((project) => project.id === selectedProject) ? selectedProject : state.projects[0]?.id || "";
+      selectedPerson = state.members.some((member) => member.id === selectedPerson) ? selectedPerson : state.members[0]?.id || "";
+      activeTaskId = state.tasks.some((task) => task.id === activeTaskId) ? activeTaskId : null;
+      render();
+      showToast("Shared workspace loaded");
+      return;
+    }
+    await persistSharedState("Shared workspace ready", true);
+  } catch {
+    showToast("Using browser copy; Supabase sync unavailable");
+  }
+}
+
+async function persistSharedState(message = "Saved", silent = false) {
+  try {
+    if (!silent) showToast("Saving shared copy...");
+    const response = await supabaseFetch(`/rest/v1/labflow_state?on_conflict=id`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        prefer: "resolution=merge-duplicates"
+      },
+      body: JSON.stringify({
+        id: SUPABASE_STATE_ID,
+        data: state,
+        updated_at: new Date().toISOString()
+      })
+    });
+    if (!response.ok) throw new Error(`Save failed: ${response.status}`);
+    if (!silent) showToast(message);
+  } catch {
+    showToast("Saved here; shared sync failed");
+  }
+}
+
+function supabaseFetch(path, options = {}) {
+  return fetch(`${SUPABASE.url}${path}`, {
+    ...options,
+    headers: {
+      apikey: SUPABASE.anonKey,
+      authorization: `Bearer ${SUPABASE.anonKey}`,
+      ...(options.headers || {})
+    }
+  });
 }
 
 function memberName(id) {
@@ -1851,8 +1923,9 @@ async function addCommunityPost() {
   let postLink = link;
   try {
     if (file) {
-      const storageKey = `media-${Date.now()}-${Math.random().toString(16).slice(2)}`;
-      if (typeof indexedDB === "undefined") {
+      if (SUPABASE_READY) {
+        media = await uploadSharedMedia(file);
+      } else if (typeof indexedDB === "undefined") {
         if (file.size > 2_000_000) {
           showToast("Use a link for larger files");
           return;
@@ -1863,6 +1936,7 @@ async function addCommunityPost() {
           name: file.name
         };
       } else {
+        const storageKey = `media-${Date.now()}-${Math.random().toString(16).slice(2)}`;
         await storeMediaBlob(storageKey, file);
         storedMediaUrls.set(storageKey, URL.createObjectURL(file));
         media = {
@@ -1904,6 +1978,29 @@ async function addCommunityPost() {
   state.community.unshift(post);
   state.activity.unshift(`${author} shared ${title}.`);
   saveState("Post published");
+}
+
+async function uploadSharedMedia(file) {
+  const path = `${Date.now()}-${crypto.randomUUID()}-${safeStorageName(file.name || "attachment")}`;
+  const response = await supabaseFetch(`/storage/v1/object/${SUPABASE_BUCKET}/${encodeURIComponent(path)}`, {
+    method: "POST",
+    headers: {
+      "content-type": file.type || "application/octet-stream",
+      "x-upsert": "false"
+    },
+    body: file
+  });
+  if (!response.ok) throw new Error(`Upload failed: ${response.status}`);
+  return {
+    kind: mediaKindFromFile(file),
+    url: `${SUPABASE.url}/storage/v1/object/public/${SUPABASE_BUCKET}/${encodeURIComponent(path)}`,
+    storageKey: path,
+    name: file.name || "Attachment"
+  };
+}
+
+function safeStorageName(name) {
+  return name.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") || "attachment";
 }
 
 function mediaKindFromFile(file) {
@@ -2102,4 +2199,5 @@ function escapeHtml(value) {
 }
 
 render();
+void hydrateSharedState();
 void hydrateStoredMedia();
