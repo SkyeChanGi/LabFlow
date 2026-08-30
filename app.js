@@ -416,6 +416,12 @@ function saveState(message = "Saved") {
   render();
 }
 
+function autoSaveState(message = "Autosaved") {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  window.clearTimeout(autoSaveState.timer);
+  autoSaveState.timer = window.setTimeout(() => showToast(message), 650);
+}
+
 function memberName(id) {
   return state.members.find((member) => member.id === id)?.name || "Unassigned";
 }
@@ -504,7 +510,6 @@ function render() {
           </div>
         </div>
         <div class="top-actions">
-          <button class="btn" data-action="reset" title="Restore sample data">${icon("reset")} Reset</button>
           <button class="btn primary" data-action="new-task">${icon("plus")} Task</button>
         </div>
       </header>
@@ -1330,6 +1335,10 @@ function statusText(status) {
   }[status];
 }
 
+function isAutosaveInput(node) {
+  return node.matches("textarea, input:not([type]), input[type='text'], input[type='date'], input[type='url']");
+}
+
 function bindEvents() {
   document.querySelectorAll("[data-task]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -1481,6 +1490,11 @@ function bindEvents() {
   document.addEventListener("click", closeAllMenus, { once: true });
 
   document.querySelectorAll("[data-field]").forEach((fieldNode) => {
+    if (isAutosaveInput(fieldNode)) {
+      fieldNode.addEventListener("input", (event) => updateTaskField(event.target.dataset.field, event.target.value, true));
+      fieldNode.addEventListener("change", (event) => updateTaskField(event.target.dataset.field, event.target.value));
+      return;
+    }
     fieldNode.addEventListener("change", (event) => updateTaskField(event.target.dataset.field, event.target.value));
   });
 
@@ -1489,10 +1503,16 @@ function bindEvents() {
   });
 
   document.querySelectorAll("[data-project-field]").forEach((fieldNode) => {
+    if (isAutosaveInput(fieldNode) || fieldNode.type === "range") {
+      fieldNode.addEventListener("input", (event) => updateProjectField(event.target.dataset.projectField, event.target.value, true));
+      fieldNode.addEventListener("change", (event) => updateProjectField(event.target.dataset.projectField, event.target.value));
+      return;
+    }
     fieldNode.addEventListener("change", (event) => updateProjectField(event.target.dataset.projectField, event.target.value));
   });
 
   document.querySelectorAll("[data-meeting-link]").forEach((fieldNode) => {
+    fieldNode.addEventListener("input", (event) => updateMeetingLink(event.target.dataset.meetingLink, event.target.value, true));
     fieldNode.addEventListener("change", (event) => updateMeetingLink(event.target.dataset.meetingLink, event.target.value));
   });
 
@@ -1605,17 +1625,6 @@ function handleAction(action) {
     activeTaskId = task.id;
     saveState("Task created");
   }
-  if (action === "reset") {
-    state = structuredClone(seed);
-    selectedProject = state.projects[0].id;
-    selectedPerson = state.members[0].id;
-    view = "project";
-    currentTab = "today";
-    activeTaskId = null;
-    query = "";
-    communityFilter = "all";
-    saveState("Sample data restored");
-  }
   if (action === "add-person-task") addPersonTask();
   if (action === "add-community-post") void addCommunityPost();
   if (action === "add-check") addChecklist();
@@ -1627,11 +1636,15 @@ function activeTask() {
   return state.tasks.find((task) => task.id === activeTaskId);
 }
 
-function updateTaskField(key, value) {
+function updateTaskField(key, value, quiet = false) {
   const task = activeTask();
   if (!task) return;
   task[key] = value;
   if (key === "assignee") task.assignees = value ? [value] : [];
+  if (quiet) {
+    autoSaveState("Task autosaved");
+    return;
+  }
   saveState("Task updated");
 }
 
@@ -1649,10 +1662,14 @@ function updateTaskParticipant(memberId, checked) {
   saveState("Participants updated");
 }
 
-function updateProjectField(key, value) {
+function updateProjectField(key, value, quiet = false) {
   const project = state.projects.find((item) => item.id === selectedProject);
   if (!project) return;
   project[key] = key === "progressOverride" ? Number(value) : value;
+  if (quiet) {
+    autoSaveState("Project autosaved");
+    return;
+  }
   saveState("Project updated");
 }
 
@@ -1713,10 +1730,14 @@ function deleteProject(projectId) {
   saveState(`${project.title} deleted`);
 }
 
-function updateMeetingLink(meetingId, value) {
+function updateMeetingLink(meetingId, value, quiet = false) {
   const meeting = state.meetings.find((item) => item.id === meetingId);
   if (!meeting) return;
   meeting.link = value.trim();
+  if (quiet) {
+    autoSaveState("Meeting autosaved");
+    return;
+  }
   saveState("Meeting link saved");
 }
 
